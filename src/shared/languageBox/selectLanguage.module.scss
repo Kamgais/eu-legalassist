@@ -1,0 +1,36 @@
+.topBar_head_actions_language_box {
+  position: relative;
+ text-align: center;
+
+  .topBar_head_actions_select_options {
+    position: absolute;
+    width: 130%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-content: space-between;
+    padding: 10px;
+    left: 50%;
+    top: 110%;
+    transform: translate(-50%);
+    background-color: #ffff;
+
+    p {
+      color: black;
+      padding: 5px;
+      background-color: #ffff;
+
+      &:hover {
+        background-color: #306578;
+        cursor: pointer;
+        color: #ffff;
+        transition: all 0.3s ease-in;
+      }
+
+
+
+
+    }
+  }
+}

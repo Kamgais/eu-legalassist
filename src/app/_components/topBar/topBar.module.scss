@@ -1,0 +1,149 @@
+
+.topBar {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+
+  .topBar_head {
+    display: flex;
+    align-items: center;
+    padding: 0 60px;
+    height: 49px;
+    gap: 45px;
+    background-color: #306578;
+    color: #ffff ;
+
+
+    .topBar_head_actions {
+      margin-left: auto;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+
+      .topBar_head_actions_social {
+        width: 30px;
+          height: 30px;
+          background-color: #ffff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 50%;
+          color: black;
+          cursor: pointer;
+
+          &:hover {
+            color: white;
+            background-color: black;
+            transition: all 0.3s ease-in;
+          }
+
+
+      }
+
+
+    }
+  }
+
+}
+
+.topBar_body {
+  height: 100px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 60px;
+
+  .topBar_body_logo {
+    border: 2px solid black;
+    padding: 10px;
+  }
+
+  .topBar_body_contacts {
+    display: flex;
+    gap: 20px;
+
+    .topBar_body_contacts_number, .topBar_body_contacts_hours {
+        text-transform: uppercase;
+        font-weight: bold;
+        color: #2d3436;
+
+        p:nth-child(1) {
+          color: #306578;
+        }
+    }
+  }
+
+}
+
+.topBar_actions {
+  height: 74px;
+  border-top: 1px solid #dfe6e9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 60px;
+  background-color: white;
+
+  .topBar_actions_left {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+    font-weight: bold;
+
+
+    li {
+        border-right: 1px solid #dfe6e9;
+        padding-right: 30px;
+
+    }
+
+  }
+
+  .topBar_actions_right {
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+
+    flex: 1;
+
+    .topBar_actions_search {
+      position: relative;
+
+      input {
+        outline: none;
+        border: none;
+        border-bottom: 1px solid #dfe6e9 ;
+        font-family: inherit;
+        padding: 10px;
+      }
+
+      .topBar_actions_search_icon {
+        position: absolute;
+        left: -3%;
+        top: 10px;
+        font-weight: bold;
+      }
+
+
+    }
+
+    button {
+      border: none;
+      padding: 10px;
+      background-color: white;
+      font-family: inherit;
+      cursor: pointer;
+      font-weight: bold;
+      color: #306578;
+
+     &:hover {
+      color: #054157;
+      transition: all 0.3s ease-in;
+     }
+
+    }
+  }
+}
+

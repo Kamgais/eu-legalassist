@@ -1,0 +1,39 @@
+.mostUsedCases_container {
+  background-color: white;
+  width: 100vw;
+  margin: 0 auto;
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  justify-content: center;
+}
+
+.mostUsedCases_list {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+.mostUsedCases_button {
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  border: none;
+  gap: 10px;
+  background-color: white;
+  color: #306578;
+  font-family: inherit;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+
+}
