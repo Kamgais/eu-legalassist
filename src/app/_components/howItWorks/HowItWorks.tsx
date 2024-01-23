@@ -10,8 +10,8 @@ export default function HowItWorks() {
 
       <div className={classes.howItWorks_stepList} style={{display: 'flex', flexWrap: 'wrap'}}>
         {
-          steps.map((step: Step) => (
-            <HowItWorkStep stepIndex={step.stepIndex} action={step.action} description={step.description}/>
+          steps.map((step: Step, index: number) => (
+            <HowItWorkStep key={index} stepIndex={step.stepIndex} action={step.action} description={step.description}/>
           ))
         }
       </div>

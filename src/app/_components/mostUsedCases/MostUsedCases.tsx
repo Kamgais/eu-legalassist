@@ -10,8 +10,8 @@ export default function MostUsedCases() {
       <TitleWithBar title='Most used Cases and Documents'/>
       <div className={classes.mostUsedCases_list}>
         {
-          mostUsedCases.map((usedCase: UsedCase) => (
-            <MostUsedCase title={usedCase.title} cases={usedCase.cases}/>
+          mostUsedCases.map((usedCase: UsedCase, index: number) => (
+            <MostUsedCase key={index} title={usedCase.title} cases={usedCase.cases}/>
           ))
         }
       </div>
