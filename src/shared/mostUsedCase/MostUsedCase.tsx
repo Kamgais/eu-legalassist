@@ -13,8 +13,8 @@ export default function MostUsedCase({title, cases}: Props) {
       <h2>{title}</h2>
       <div className={classes.mostUsedCase_cases}>
         {
-          cases.map((c:string) => (
-            <Link href={c}  style={{
+          cases.map((c:string, index: number) => (
+            <Link key={index} href={c}  style={{
               textDecoration: 'none',
               color: '#306578',
               display: 'flex',
