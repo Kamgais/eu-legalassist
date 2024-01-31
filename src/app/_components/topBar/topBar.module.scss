@@ -98,6 +98,12 @@
 
 
      .topBar_body_logo_burger_menu {
+      @include xs {
+        display: block;
+      }
+      @include sm {
+        display: none;
+      }
       font-size: 25px;
       font-weight: bold;
       cursor: pointer;
