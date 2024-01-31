@@ -1,12 +1,28 @@
+@import '../../styles/responsive';
+
 .yourCaseSearch_title {
+  @include xs {
+    gap: 10px;
+    align-items: start;
+  }
+  @include sm {
+    align-items: center;
+    gap: 30px;
+  }
   text-transform: uppercase;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 30px;
+
+
 
   h2 {
-    font-size: 40px;
+    @include xs {
+      font-size: 25px;
+    }
+    @include sm {
+     font-size: 40px;
+    }
+
     color: #306578;
   }
 

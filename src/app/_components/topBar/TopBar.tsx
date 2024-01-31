@@ -3,6 +3,7 @@ import classes from './topBar.module.scss';
 import { FaTwitter } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { CiSearch } from "react-icons/ci";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 
 export default function TopBar() {
@@ -27,7 +28,13 @@ export default function TopBar() {
     </div>
     <div className={classes.topBar_body}>
       <div className={classes.topBar_body_logo}>
-          LOGO
+        <p>
+        LOGO
+        </p>
+        <div className={classes.topBar_body_logo_burger_menu}>
+        <RxHamburgerMenu />
+        </div>
+
       </div>
       <div className={classes.topBar_body_contacts}>
           <div className={classes.topBar_body_contacts_number}>

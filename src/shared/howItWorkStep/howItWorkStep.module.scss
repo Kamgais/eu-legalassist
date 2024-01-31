@@ -1,10 +1,23 @@
+@import '../../styles/responsive';
+
 .howItWorkStep_container {
+  @include xs {
+    width: 100vw;
+    justify-content: start;
+    padding: 0;
+  }
+
+  @include md {
+    justify-content: center;
+    padding: 20px;
+    width: 50%;
+  }
   display: flex;
   align-items: center;
-  justify-content: center;
+
   gap: 10px;
-  padding: 20px;
-  width: 50%;
+
+
 
 
 }
@@ -28,7 +41,13 @@
 }
 
 .howItWorkStep_desc {
-  width: 60%;
+  @include xs {
+    width: 100%;
+  }
+  @include md {
+    width: 60%;
+  }
+
 }
 
 .howItWorkStep_right {

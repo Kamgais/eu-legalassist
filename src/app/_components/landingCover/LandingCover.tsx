@@ -1,7 +1,15 @@
-import classes from './headContent.module.scss';
-import Image from 'next/image';
+"use client";
 
-export default function HeadContent() {
+import classes from './landingCover.module.scss';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+
+export default function LandingCover() {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push('/form');
+  }
   return (
     <div className={classes.headContent_container}>
       <div className={classes.headContent_infos}>
@@ -14,7 +22,7 @@ export default function HeadContent() {
              sint impedit quae. Veritatis cum aspernatur nam quasi
              voluptatum maiores exercitationem deserunt magni nesciun</p>
               <div className={classes.headContent_action}>
-              <button>Lorem Ipsum</button>
+              <button onClick={handleClick} >Dokument erstellen</button>
               </div>
 
       </div>

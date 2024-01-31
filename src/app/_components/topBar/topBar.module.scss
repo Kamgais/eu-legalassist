@@ -1,3 +1,5 @@
+@import '../../../styles/responsive';
+
 
 .topBar {
   width: 100%;
@@ -6,9 +8,22 @@
 
 
   .topBar_head {
-    display: flex;
+
+    @include xs {
+      display: none;
+    }
+
+    @include sm {
+      display: flex;
+      font-size: 12px;
+      padding: 0 30px;
+    }
+
+    @include xl {
+      font-size: 16px;
+      padding: 0 60px;
+    }
     align-items: center;
-    padding: 0 60px;
     height: 49px;
     gap: 45px;
     background-color: #306578;
@@ -48,16 +63,53 @@
 }
 
 .topBar_body {
-  height: 100px;
+  @include xs {
+    flex-direction: column;
+    padding: 10px 30px;
+    gap: 15px;
+    font-size: 14px;
+  }
+
+  @include sm {
+    align-items: center;
+    flex-direction: row;
+    padding: 0 30px;
+
+  }
+
+  @include xl {
+    padding: 0 60px;
+    font-size: 15px;
+  }
+  min-height: 100px;
   background-color: white;
   display: flex;
-  align-items: center;
+
   justify-content: space-between;
-  padding: 0 60px;
+
 
   .topBar_body_logo {
-    border: 2px solid black;
-    padding: 10px;
+    width: 100%;
+    @include xs {
+      display: flex;
+     justify-content: space-between;
+      align-items: center;
+     }
+
+
+     .topBar_body_logo_burger_menu {
+      font-size: 25px;
+      font-weight: bold;
+      cursor: pointer;
+     }
+
+     p {
+      border: 2px solid black;
+      padding: 10px;
+     align-self: flex-start;
+     }
+
+
   }
 
   .topBar_body_contacts {
@@ -78,9 +130,16 @@
 }
 
 .topBar_actions {
-  height: 74px;
+  @include xs {
+    display: none;
+  }
+
+  @include sm {
+    display: flex;
+  }
+  min-height: 74px;
   border-top: 1px solid #dfe6e9;
-  display: flex;
+  border-bottom: 1px solid #dfe6e9;
   justify-content: space-between;
   align-items: center;
   padding: 0 60px;

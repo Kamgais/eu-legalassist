@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import localFont from 'next/font/local'
 import "./globals.scss";
 import AppHeader from "./_components/appHeader/AppHeader";
 import Footer from "./_components/footer/Footer";
 import Copywrite from "./_components/copywrite/Copywrite";
+
+
+
+const myFont = localFont({
+  src:'../fonts/woff/san_francisco-webfont.woff2',
+  display: 'swap'
+})
 
 const inter = Inter({ subsets: ["latin"] });
 

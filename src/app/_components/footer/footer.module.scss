@@ -1,15 +1,34 @@
+@import '../../../styles/responsive';
 
 .footer_container {
-  width: 80%;
+  @include xs {
+    width: 100%;
+    padding: 50px 25px;
+    justify-content: flex-start;
+  }
+
+
+
+  @include lg {
+    width: 80%;
+    padding: 100px 50px;
+    justify-content: center;
+  }
   margin: 0 auto;
   display: flex;
-  padding: 100px 50px;
-  justify-content: center;
+
+
+  flex-wrap: wrap;
   gap: 40px;
 
 
   .footer_welcome {
-    width: 25%;
+    @include xs {
+      width: 100%;
+    }
+    @include md {
+      width: 25%;
+    }
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -21,7 +40,14 @@
   }
 
   .footer_company {
-    width: 10%;
+    @include xs {
+      width: 30%;
+    }
+
+    @include md {
+      width: 10%;
+    }
+
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -54,7 +80,12 @@
   }
 
   .footer_contact {
-    width: 25%;
+    @include xs {
+      width: 30%;
+    }
+    @include md {
+      width: 25%;
+    }
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -65,7 +96,14 @@
   }
 
   .footer_other {
-    width: 10%;
+    @include xs {
+      width: 30%;
+    }
+
+    @include md {
+      width: 10%;
+    }
+
     display: flex;
     flex-direction: column;
     gap: 20px;
