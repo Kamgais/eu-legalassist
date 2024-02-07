@@ -16,7 +16,7 @@ export default function MostUsedCase({title, cases}: Props) {
           cases.map((c:string, index: number) => (
             <Link key={index} href={c}  style={{
               textDecoration: 'none',
-              color: '#306578',
+              color: '$primaryBlue',
               display: 'flex',
               alignItems: 'center'
             }}>

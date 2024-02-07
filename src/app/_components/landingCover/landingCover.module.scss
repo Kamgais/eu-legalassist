@@ -1,4 +1,5 @@
 @import '../../../styles/responsive';
+@import '../../../styles/appColors';
 
 .headContent_container {
   @include xs {
@@ -38,7 +39,7 @@
     height: 100%;
     margin-left: 20vw;
   }
-  background-color:#306578;
+  background-color:$primaryBlue;
 
   display: flex;
   gap: 10px;

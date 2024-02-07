@@ -4,6 +4,7 @@ import { FaTwitter } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { CiSearch } from "react-icons/ci";
 import { RxHamburgerMenu } from "react-icons/rx";
+import Image from 'next/image';
 
 
 export default function TopBar() {
@@ -28,9 +29,7 @@ export default function TopBar() {
     </div>
     <div className={classes.topBar_body}>
       <div className={classes.topBar_body_logo}>
-        <p>
-        LOGO
-        </p>
+       <Image  src='/images/appLogo.png' width={260} height={60} alt=''/>
         <div className={classes.topBar_body_logo_burger_menu}>
         <RxHamburgerMenu />
         </div>

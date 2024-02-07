@@ -1,4 +1,5 @@
 @import '../../../styles/responsive';
+@import '../../../styles/appColors';
 
 
 .topBar {
@@ -26,7 +27,7 @@
     align-items: center;
     height: 49px;
     gap: 45px;
-    background-color: #306578;
+    background-color: $primaryBlue;
     color: #ffff ;
 
 
@@ -128,7 +129,7 @@
         color: #2d3436;
 
         p:nth-child(1) {
-          color: #306578;
+          color: $primaryBlue;
         }
     }
   }
@@ -201,7 +202,7 @@
       font-family: inherit;
       cursor: pointer;
       font-weight: bold;
-      color: #306578;
+      color: $primaryBlue;
 
      &:hover {
       color: #054157;

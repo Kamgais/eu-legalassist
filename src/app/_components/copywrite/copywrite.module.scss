@@ -1,7 +1,10 @@
+@import '../../../styles/appColors';
+
+
 .copywrite_container {
   width: 100vw;
   height: 60px;
-  color:#306578 ;
+  color:$primaryBlue ;
   font-style: italic;
   font-size: 12px;
   background-color: white;

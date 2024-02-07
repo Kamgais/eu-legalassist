@@ -1,3 +1,5 @@
+@import '../styles/appColors';
+
 *,::after, ::before {
   margin: 0;
   padding: 0;
@@ -14,7 +16,7 @@ body {
 footer {
   width: 100vw;
   margin-top: auto;
-  background-color: #306578 ;
+  background-color: $primaryBlue ;
   color: white;
 
 }

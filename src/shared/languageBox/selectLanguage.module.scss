@@ -1,3 +1,5 @@
+@import '../../styles/appColors';
+
 .topBar_head_actions_language_box {
   position: relative;
  text-align: center;
@@ -22,7 +24,7 @@
       background-color: #ffff;
 
       &:hover {
-        background-color: #306578;
+        background-color: $primaryBlue;
         cursor: pointer;
         color: #ffff;
         transition: all 0.3s ease-in;
