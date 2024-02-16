@@ -29,14 +29,14 @@
 .headContent_infos {
   @include xs {
     font-size: 12px;
-    width: 50%;
-    height: 90%;
+    width: 70%;
+    height: 80%;
 
 
   }
   @include sm {
     font-size: 15px;
-    width: 30%;
+    width: 60%;
     height: 80%;
     border-radius: 20px;
     margin-left: 20vw;
@@ -47,7 +47,7 @@
   gap: 10px;
 
   min-width: 300px;
-  max-width: 900px;
+  max-width: 500px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
