@@ -9,7 +9,6 @@
   @include lg {
     width: 70vw;
   }
-  background-color: rgb(255, 255, 255);
   margin: 50px auto;
 
 
@@ -40,7 +39,7 @@
       }
       font-weight: bold;
       text-transform: uppercase;
-      color: $primaryBlue;
+      color: $primaryMarron;
       position: relative;
 
       &::after {
@@ -55,7 +54,7 @@
         position: absolute;
         width: 100%;
         height: 3px;
-        background-color: $primaryBlue;
+        background-color: $primaryMarron;
         left: 0;
 
       }
@@ -91,18 +90,19 @@
     height: 55px;
     padding: 10px;
     font-family: inherit;
-    border-color: #23568d52;
     outline: none;
     font-weight: 400;
+    border-radius: 5px;
+    border-color: #01070d52;
 
 
     &:focus {
-      border: 2px solid $primaryBlue;
+      border: 2px solid $primaryBlack;
     }
   }
 
   label {
-    color: $primaryBlue;
+    color: $primaryBlack;
     font-weight: 500;
   }
 }
@@ -133,12 +133,13 @@
     }
 
     height: 55px;
-    background-color: $primaryBlue;
+    background-color: $primaryMarron;
     color: white;
     border: none;
     font-family: inherit;
     cursor: pointer;
     font-weight: bolder;
+    border-radius: 5px;
 
     &:nth-child(1) {
       @include xs {
@@ -150,8 +151,13 @@
       }
 
       background-color: white;
-      color: $primaryBlue;
-      border: 1px solid $primaryBlue;
+      color: $primaryMarron;
+      border: 1px solid $primaryMarron;
+    }
+
+    &:disabled {
+      background-color: #ba5502b1 ;
+      cursor: not-allowed;
     }
 
   }
@@ -166,7 +172,7 @@
   margin-bottom: 20px;
 
   h3 {
-    color: $primaryBlue;
+    color: $primaryBlack;
     display: flex;
     justify-content: center;
 
@@ -197,45 +203,77 @@
     height: 55px;
     padding: 10px;
     font-family: inherit;
-    border-color: #23568d52;
     outline: none;
     font-weight: 400;
+    border-radius: 5px;
+    border-color: #01070d52;
 
 
     &:focus {
-      border: 2px solid $primaryBlue;
+      border: 2px solid $primaryBlack;
     }
   }
 
   label {
-    color: $primaryBlue;
+    color: $primaryMarron;
     font-weight: 500;
+    color: $primaryBlack;
   }
 
 }
 
 .form_container_step_two_box {
+ display: flex;
+ flex-direction: column;
+ gap: 10px;
+
+ select {
+      width: 100%;
+      height: 55px;
+      padding: 10px;
+      font-family: inherit;
+      font-size: 15px;
+      border: 2px solid #01070d52;
+      border-radius: 5px;
+      color: $primaryBlack;
+      outline: none;
+      background-color: $primaryWhite;
+
+      &:focus {
+        border-color: $primaryBlack;
+      }
+    }
+
+    label {
+      color: $primaryBlack;
+      font-weight: bold;
+    }
+ }
+
+
+
+.form_container_step_three_box {
   width: 90%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 20px;
 
-  .form_container_step_two {
+  .form_container_step_three {
     display: flex;
     flex-direction: column;
     gap: 10px;
   }
 
 
-  .form_container_step_two_checkbox {
+  .form_container_step_three_checkbox {
     display: flex;
     gap: 5px;
     font-weight: 500;
-    color: $primaryBlue;
+    color: $primaryBlack;
   }
 
-  .form_container_step_two_date {
+  .form_container_step_three_date {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -246,49 +284,61 @@
       height: 55px;
       padding: 10px;
       font-family: inherit;
-      border-color: #23568d52;
-      color: #11539a;
+      border: 2px solid;
+      border-radius: 5px;
+      border-color: #01070d52 ;
+      background-color: $primaryWhite;
+      color: $primaryBlack;
       outline: none;
+
+      &:focus {
+        border-color: $primaryBlack;
+      }
     }
 
     label {
-      color: #23568dbe;
+      color: $primaryBlack;
     }
   }
 }
 
-.form_container_step_two_radio {
+.form_container_step_three_radio {
   display: flex;
   gap: 5px;
-  color: #23568dbe;
+  color: $primaryBlack;
 
 
 }
 
-.form_container_step_two_textarea {
+.form_container_step_three_textarea {
   display: flex;
   flex-direction: column;
   gap: 10px;
 
   label {
-    color: #23568dbe;
+    color: $primaryBlack;
   }
 
   textarea {
     resize: none;
     padding: 10px;
     font-family: inherit;
-    border-color: #23568d52;
-    color: #23568dd0;
+    border-color: $primaryBlack;
+    color: $primaryBlack;
     outline: none;
+    border: 2px solid #01070d52 ;
+
+    &:focus {
+      border-color: $primaryBlack;
+    }
   }
 }
 
-.form_container_step_two_confirm {
+.form_container_step_three_confirm {
   display: flex;
   flex-direction: column;
   justify-content: start;
-  color: #23568dbe;
+  color: $primaryBlack;
 
   div {
     display: flex;

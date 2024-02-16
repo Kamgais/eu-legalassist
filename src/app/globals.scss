@@ -7,7 +7,7 @@
 }
 
 body {
-  background-color: #ffffff;
+  background-color: $primaryGrey;
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -16,7 +16,7 @@ body {
 footer {
   width: 100vw;
   margin-top: auto;
-  background-color: $primaryBlue ;
-  color: white;
+  background-color: $secondaryMarron ;
+  color: $primaryBlack;
 
 }

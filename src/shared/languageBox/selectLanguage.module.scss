@@ -4,6 +4,7 @@
   position: relative;
  text-align: center;
 
+
   .topBar_head_actions_select_options {
     position: absolute;
     width: 130%;
@@ -17,6 +18,7 @@
     top: 110%;
     transform: translate(-50%);
     background-color: #ffff;
+    border: 1px solid;
 
     p {
       color: black;
@@ -24,7 +26,7 @@
       background-color: #ffff;
 
       &:hover {
-        background-color: $primaryBlue;
+        background-color: $primaryMarron;
         cursor: pointer;
         color: #ffff;
         transition: all 0.3s ease-in;

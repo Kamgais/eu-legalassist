@@ -12,7 +12,7 @@ export default function TopBar() {
    <nav className={classes.topBar}>
     <div className={classes.topBar_head}>
       <div className={classes.topBar_head_location}>
-        <p>Location: youadressestraße 12, 12457 Berlin</p>
+        <p>Location: Vorsetzen 41, 20459 Hamburg</p>
       </div>
       <div className={classes.topBar_head_email}>
         <p>Email: company@legalassist.de</p>
@@ -38,7 +38,7 @@ export default function TopBar() {
       <div className={classes.topBar_body_contacts}>
           <div className={classes.topBar_body_contacts_number}>
              <p>Problem? Contact us</p>
-             <p>+55555 555 555</p>
+             <p>+490175 8886316</p>
           </div>
           <div className={classes.topBar_body_contacts_hours}>
             <p>Call Hours</p>
@@ -48,11 +48,11 @@ export default function TopBar() {
     </div>
     <div className={classes.topBar_actions}>
       <ul className={classes.topBar_actions_left}>
-        <li>HOME</li>
-        <li>CAT A</li>
-        <li>CAT B</li>
-        <li>CAT C</li>
-        <li>CAT D</li>
+        <li>Home</li>
+        <li>Business & Unternehmen</li>
+        <li>Personalwesen / Arbeit</li>
+        <li>Rechtsdokumente</li>
+        <li>Alle Dokumente</li>
       </ul>
       <div className={classes.topBar_actions_right}>
         <div className={classes.topBar_actions_search}>

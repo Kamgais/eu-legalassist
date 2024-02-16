@@ -18,11 +18,12 @@
   }
   width: 100vw;
 
-  background-image: url("https://images.pexels.com/photos/4427553/pexels-photo-4427553.jpeg");
+  background-image: url("https://images.pexels.com/photos/8124246/pexels-photo-8124246.jpeg");
   background-position:center;
-  background-size: cover;
+  background-size:cover;
   background-attachment: fixed;
-  background-position-y: 70px;
+   background-repeat: no-repeat;
+  background-position-y: -100px;
 }
 
 .headContent_infos {
@@ -36,10 +37,11 @@
   @include sm {
     font-size: 15px;
     width: 30%;
-    height: 100%;
+    height: 80%;
+    border-radius: 20px;
     margin-left: 20vw;
   }
-  background-color:$primaryBlue;
+  background-color:$primaryWhite;
 
   display: flex;
   gap: 10px;
@@ -49,7 +51,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: $primaryBlack;
 
   h2 {
     @include xs {
@@ -81,9 +83,12 @@
       @include sm {
         font-size: 15px;
       }
-      padding: 10px;
+      padding: 15px;
       border: none;
       font-family: inherit;
+      background-color: $primaryMarron;
+      color: $primaryWhite;
+      border-radius: 5px;
       cursor: pointer;
     }
   }

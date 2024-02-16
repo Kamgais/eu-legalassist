@@ -14,15 +14,12 @@ export default function LandingCover() {
     <div className={classes.headContent_container}>
       <div className={classes.headContent_infos}>
 
-          <h2>Lorem ipsum dolor sit amet consectetur. </h2>
-          <p>Lorem ipsum, dolor sit amet consectetur adipisicing
-            elit. Voluptas iure ullam veritatis architecto saepe
-            quisquam blanditiis provident optio totam doloribus animi
-             sequi fugit aliquid odit doloremque numquam qui, labore
-             sint impedit quae. Veritatis cum aspernatur nam quasi
-             voluptatum maiores exercitationem deserunt magni nesciun</p>
+          <h2>Welcome to EU Legal assist </h2>
+          <p>German legal documents in English and French for every immigrant.
+            Understand your rights and declare your taxes without language barriers.
+          </p>
               <div className={classes.headContent_action}>
-              <button onClick={handleClick} >Dokument erstellen</button>
+              <button onClick={handleClick} >Create a document</button>
               </div>
 
       </div>

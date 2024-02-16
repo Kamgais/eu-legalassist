@@ -1,4 +1,5 @@
 @import '../../../styles/responsive';
+@import '../../../styles/appColors';
 
 .footer_container {
   @include xs {
@@ -66,7 +67,7 @@
           position: absolute;
           width: 0;
           height: 2px;
-          background-color: white;
+          background-color: $primaryBlack;
           left: 0;
           bottom: -25%;
         }
@@ -123,7 +124,7 @@
           position: absolute;
           width: 0;
           height: 2px;
-          background-color: white;
+          background-color: $primaryBlack;
           left: 0;
           bottom: -25%;
         }

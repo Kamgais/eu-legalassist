@@ -3,8 +3,8 @@
 import classes from './form.module.scss';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import LoadingSpinner from '@/shared/loadingSpinner/loadingSpinner';
 
 const steps = [
   {
@@ -13,11 +13,11 @@ const steps = [
   },
   {
     id: '2',
-    name: 'Angabe zum Studium'
+    name: 'Informations about study'
   },
   {
     id: '3',
-    name: 'Ausdrücken'
+    name: 'Print'
   }
 ]
 
@@ -63,7 +63,9 @@ type Document = {
 export default function Form() {
   const  [currentStep, setCurrentStep] = useState(0);
   const [immaJahr, setImmaJahr] = useState(0);
-  const [document , setDocument] = useState<Document>({
+  const [loading,setLoading] = useState(false);
+  const [uniLevel , uniLevelSet] = useState('');
+  const [documentPdf , setDocumentPdf] = useState<Document>({
       familienname: '',
       vorname: '',
       kindergeldNr: '',
@@ -123,47 +125,81 @@ export default function Form() {
     let newDocument;
     if(e.currentTarget.type == 'date') {
       console.log(e.currentTarget.value)
-      newDocument = {...document , [e.currentTarget.name]: e.currentTarget.value };
+      newDocument = {...documentPdf , [e.currentTarget.name]: e.currentTarget.value };
     } else {
-      newDocument = {...document , [e.currentTarget.name]: e.currentTarget.value};
+      newDocument = {...documentPdf , [e.currentTarget.name]: e.currentTarget.value};
     }
 
-   setDocument(newDocument);
+   setDocumentPdf(newDocument);
 
   }
 
 
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const setImmatype = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const immaType = e.currentTarget.value;
 
     switch(immaType) {
       case 'WiSe':  {
-        const newDocument: Document = {...document , immaWise: true , immaSoSe: false ,  immaWiseJahr: immaJahr , immaSoSeJahr: 0}
-        setDocument(newDocument);
+        const newDocument: Document = {...documentPdf , immaWise: true , immaSoSe: false ,  immaWiseJahr: immaJahr , immaSoSeJahr: 0}
+        setDocumentPdf(newDocument);
+        break;
       }
       case 'SoSe' : {
-        const newDocument = {...document , immaWise: false , immaSoSe: true,  immaWiseJahr: 0 , immaSoSeJahr: immaJahr}
-        setDocument(newDocument);
+        const newDocument = {...documentPdf , immaWise: false , immaSoSe: true,  immaWiseJahr: 0 , immaSoSeJahr: immaJahr}
+        setDocumentPdf(newDocument);
+        break;
       }
       default : {
-        const newDocument = {...document , immaWise: false , immaSoSe: false,  immaWiseJahr: 0 , immaSoSeJahr: 0}
-        setDocument(newDocument);
+        const newDocument = {...documentPdf , immaWise: false , immaSoSe: false,  immaWiseJahr: 0 , immaSoSeJahr: 0}
+        setDocumentPdf(newDocument);
+        break;
+      }
+      }
+  }
+
+  const setUniLevel = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const uniLevel = e.currentTarget.value;
+    switch(uniLevel) {
+      case 'completed':  {
+        const newDocument: Document = {...documentPdf , uniBeendet: true , uniGehtWeiter: false , uniAbgebrochen: false}
+        setDocumentPdf(newDocument);
+        uniLevelSet('completed')
+        break;
+      }
+      case 'droppedOut' : {
+        const newDocument = {...documentPdf , uniBeendet: false , uniGehtWeiter: false , uniAbgebrochen: true}
+        setDocumentPdf(newDocument);
+        uniLevelSet('droppedOut')
+        break;
+      }
+
+      case 'uniGehtWeiter' :  {
+        const newDocument = {...documentPdf , uniBeendet: false , uniGehtWeiter: true , uniAbgebrochen: false}
+        setDocumentPdf(newDocument);
+        uniLevelSet('uniGehtWeiter')
+        break;
+      }
+      default : {
+        const newDocument = {...documentPdf , uniBeendet: true , uniGehtWeiter: false , uniAbgebrochen: false}
+        setDocumentPdf(newDocument);
+        uniLevelSet('completed')
       }
       }
   }
 
   const handleSubmit = async() => {
 
-    const newDocument: Document = {
-      ...document,
-      geburtsdatum: formatDate(document.geburtsdatum),
-      uniBestaetigungAb: formatDate(document.uniBestaetigungAb),
-      uniDokumentAm: formatDate(document.uniDokumentAm),
-      uniAbgebrochenAm: formatDate(document.uniAbgebrochenAm),
-      uniDauerBis: formatDate(document.uniDauerBis)
+    const newDocument: Document= {
+      ...documentPdf,
+      geburtsdatum: formatDate(documentPdf.geburtsdatum),
+      uniBestaetigungAb: formatDate(documentPdf.uniBestaetigungAb),
+      uniDokumentAm: formatDate(documentPdf.uniDokumentAm),
+      uniAbgebrochenAm: formatDate(documentPdf.uniAbgebrochenAm),
+      uniDauerBis: formatDate(documentPdf.uniDauerBis)
 
     }
     console.log(newDocument)
+    setLoading(true);
     const response = await fetch('http://localhost:8082/eulegalassist/api/generatePdfHtml', {
       method: 'POST',
       headers: {
@@ -171,8 +207,23 @@ export default function Form() {
       },
       body: JSON.stringify(newDocument)
     })
-    const data = await response.json();
-    console.log(data);
+    console.log(response)
+    // const data = await response.json();
+    // console.log(data);
+    if (!response.ok) {
+      setLoading(false);
+      throw new Error('Failed to generate PDF');
+    }
+    const pdfBlob = await response.blob();
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+    const link = document.createElement('a');
+    link.href = pdfUrl;
+    link.setAttribute('download', `${Math.random() * 1000}.pdf`);
+    document.body.appendChild(link);
+    link.click();
+    link.parentNode?.removeChild(link);
+    setLoading(false);
+
   }
   return (
     <section className={classes.form_container}>
@@ -193,33 +244,33 @@ export default function Form() {
             currentStep === 0 && <h3>Please provide the following details of the child benefit entitled person</h3>
           }
           {
-            currentStep === 1 && <h3>Angaben zum Kind</h3>
+            currentStep === 1 && <h3>Infos about Kid</h3>
           }
 
           {
-           currentStep === 2 && <h3>Angaben zum Studium</h3>
+           currentStep === 3 && <h3>Infos about study</h3>
           }
         {
           currentStep === 0 && (
             <div className={classes.form_container_step_box}>
            <div className={classes.form_container_step_zero}>
-              <label htmlFor="">First Name</label>
-              <input type="text" name='familienname' placeholder='Firstname' value={document.familienname} onChange={handleInputChange} />
+              <label htmlFor="">First Name*</label>
+              <input type="text" name='familienname' placeholder='Firstname' value={documentPdf.familienname} onChange={handleInputChange} />
            </div>
 
            <div className={classes.form_container_step_zero}>
-              <label htmlFor="">Last Name</label>
-              <input type="text" placeholder='Lastname' name='vorname' value={document.vorname} onChange={handleInputChange}/>
+              <label htmlFor="">Last Name*</label>
+              <input type="text" placeholder='Lastname' name='vorname' value={documentPdf.vorname} onChange={handleInputChange}/>
            </div>
 
            <div className={classes.form_container_step_zero}>
-              <label htmlFor="">A phone number under which you can be reached for inquiries</label>
-              <input type="text" placeholder='Lastname' name='telefonische' value={document.telefonische}  onChange={handleInputChange}/>
+              <label htmlFor="">Phone number*</label>
+              <input type="text" placeholder='Number' name='telefonische' value={documentPdf.telefonische}  onChange={handleInputChange}/>
            </div>
 
            <div className={classes.form_container_step_zero}>
               <label htmlFor="">Child Benefit Reference Number</label>
-              <input type="text" placeholder='Lastname' name='kindergeldNr' value={document.kindergeldNr} onChange={handleInputChange} />
+              <input type="text" placeholder='kindergeldNr' name='kindergeldNr' value={documentPdf.kindergeldNr} onChange={handleInputChange} />
            </div>
 
            </div>
@@ -230,132 +281,136 @@ export default function Form() {
           currentStep === 1 && (
             <div className={classes.form_container_step_box}>
             <div className={classes.form_container_step_one}>
-              <label htmlFor="">First Name</label>
-              <input type="text" name='kindFamilienname' placeholder='Firstname' value={document.kindFamilienname} onChange={handleInputChange} />
+              <label htmlFor="">First Name*</label>
+              <input type="text" name='kindFamilienname' placeholder='Firstname' value={documentPdf.kindFamilienname} onChange={handleInputChange} />
            </div>
 
            <div className={classes.form_container_step_one}>
-              <label htmlFor="">Last Name</label>
-              <input type="text" placeholder='Lastname' name='kindVorname' value={document.kindVorname} onChange={handleInputChange}/>
+              <label htmlFor="">Last Name*</label>
+              <input type="text" placeholder='Lastname' name='kindVorname' value={documentPdf.kindVorname} onChange={handleInputChange}/>
            </div>
 
            <div className={classes.form_container_step_one}>
-              <label htmlFor="">Date of Birth</label>
-              <input type="date"  name='geburtsdatum' value={document.geburtsdatum} onChange={handleInputChange} />
+              <label htmlFor="">Date of Birth*</label>
+              <input type="date"  name='geburtsdatum' value={documentPdf.geburtsdatum} onChange={handleInputChange} />
            </div>
             </div>
           )
         }
 
 
-{
+
+        {
           currentStep === 2 && (
             <>
             <div className={classes.form_container_step_two_box}>
-             <div className={classes.form_container_step_two}>
-              <div className={classes.form_container_step_two_checkbox}>
-                <input type="checkbox" name="" id=""  onChange={(e) => setDocument({...document, uniBeendet: e.currentTarget.checked}) } />
-                <label htmlFor="">Completed</label>
-              </div>
-              <div className={classes.form_container_step_two_date}>
-                <label htmlFor="" style={
-                  {
-                    color: document.uniBeendet ? '#23578D' : '#23568dbe'
-                  }
-                }>When can you download your proof of certificate and results from your university online portal?</label>
-                <input type="date"  placeholder='dd/mm/yyyy' disabled={!document.uniBeendet} name='uniBestaetigungAb' value={document.uniBestaetigungAb} onChange={handleInputChange}/>
-              </div>
-              <div className={classes.form_container_step_two_date}>
-                <label htmlFor="" style={
-                  {
-                    color: document.uniBeendet ? '#23578D' : '#23568dbe'
-                  }
-                }>Provide the date the official written notification of the final result was received.</label>
-                <input type="date"  placeholder='dd/mm/yyyy' disabled={!document.uniBeendet} name='uniDokumentAm' value={document.uniDokumentAm} onChange={handleInputChange}/>
-              </div>
-              <div className={classes.form_container_step_two_date}>
-                <label htmlFor="" style={
-                  {
-                    color: document.uniBeendet ? '#23578D' : '#23568dbe'
-                  }
-                }>Which attachments are you adding to this application as proof of end of studies?</label>
-                <input type="text"  placeholder='Answer here' disabled={!document.uniBeendet} name='uniNachweis' value={document.uniNachweis} onChange={handleInputChange}/>
-              </div>
-             </div>
-             <div className={classes.form_container_step_two}>
-              <div className={classes.form_container_step_two_checkbox}>
-                <input type="checkbox" name="" id="" onChange={(e) => setDocument({...document, uniAbgebrochen: e.currentTarget.checked}) }/>
-                <label htmlFor="">Dropped out</label>
-              </div>
-              <div className={classes.form_container_step_two_date}>
-                <label htmlFor="" style={
-                  {
-                    color: document.uniAbgebrochen ? '#23578D' : '#23568dbe'
-                  }
-                }>When did you drop out?</label>
-                <input type="date" name="uniAbgebrochenAm" id=""  disabled={!document.uniAbgebrochen} value={document.uniAbgebrochenAm} onChange={handleInputChange} />
-              </div>
-             </div>
-             <div className={classes.form_container_step_two}>
-             <div className={classes.form_container_step_two_checkbox}>
-                <input type="checkbox" name="" id="" onChange={(e) => setDocument({...document, uniGehtWeiter: e.currentTarget.checked}) } />
-                <label htmlFor="">Currently studying</label>
-              </div>
-              <div className={classes.form_container_step_two_date}>
-                <label htmlFor="" style={
-                  {
-                    color: document.uniGehtWeiter ? '#23578D' : '#23568dbe'
-                  }
-                }>Which enrollment certificate can you provide ?</label>
-                <select name="immaType" id="" disabled={!document.uniGehtWeiter} onChange={handleSelectChange}>
-                  <option value="WiSe">Wintersemester</option>
-                  <option value="SoSe">Sommersemester</option>
-                </select>
-              </div>
-
-              <div className={classes.form_container_step_two_date}>
-                <label htmlFor="" style={
-                  {
-                    color:  document.uniGehtWeiter ? '#23578D' : '#23568dbe'
-                  }
-                }>Year</label>
-                <input type="number"  placeholder='yyyy' disabled={!document.uniGehtWeiter} value={immaJahr} onChange={(e) => setImmaJahr(Number(e.currentTarget.value)) } />
-              </div>
-              <div className={classes.form_container_step_two_radio}>
-              <input type="checkbox" name="beigefuegt" id="" onChange={(e) => setDocument({...document, beigefuegt: e.currentTarget.checked}) } />
-                <label htmlFor="">I have included the enrollment certificate in this application</label>
-              </div>
-
-              <div className={classes.form_container_step_two_radio}>
-              <input type="checkbox" name="wirdNachgereicht" id="" onChange={(e) => setDocument({...document, wirdNachgereicht: e.currentTarget.checked})}/>
-                <label htmlFor="">I will provide the enrollment certificate later</label>
-              </div>
+              <label htmlFor="">Lorem ipsum dolor sit amet</label>
+              <select name="uniLevel" id="" value={uniLevel}  onChange={setUniLevel}>
+                <option value="">Choose an option</option>
+                <option value="completed">completed</option>
+                <option value="droppedOut">dropped out</option>
+                <option value="uniGehtWeiter">currently studying</option>
+              </select>
+            </div>
+            </>
+          )
+        }
 
 
-              <div className={classes.form_container_step_two_textarea}>
-                <label htmlFor="">Do you have any further information you would like to provide?</label>
-                <textarea name="extraAngaben" id="" cols={30} rows={10} onChange={handleInputChange}></textarea>
-              </div>
+{
+          currentStep === 3 && (
+            <>
+            <div className={classes.form_container_step_three_box}>
+            {
+              documentPdf.uniBeendet && (
+                <div className={classes.form_container_step_three}>
+                <div className={classes.form_container_step_three_checkbox}>
+                  <h3>Completed</h3>
+                </div>
+                <div className={classes.form_container_step_three_date}>
+                  <label htmlFor="" >When can you download your proof of certificate and results from your university online portal?</label>
+                  <input type="date"  placeholder='dd/mm/yyyy' disabled={!documentPdf.uniBeendet} name='uniBestaetigungAb' value={documentPdf.uniBestaetigungAb} onChange={handleInputChange}/>
+                </div>
+                <div className={classes.form_container_step_three_date}>
+                  <label htmlFor="">Provide the date the official written notification of the final result was received.</label>
+                  <input type="date"  placeholder='dd/mm/yyyy' disabled={!documentPdf.uniBeendet} name='uniDokumentAm' value={documentPdf.uniDokumentAm} onChange={handleInputChange}/>
+                </div>
+                <div className={classes.form_container_step_three_date}>
+                  <label htmlFor="">Which attachments are you adding to this application as proof of end of studies?</label>
+                  <input type="text"  placeholder='Answer here' disabled={!documentPdf.uniBeendet} name='uniNachweis' value={documentPdf.uniNachweis} onChange={handleInputChange}/>
+                </div>
+               </div>
+              )
+            }
 
-              <div className={classes.form_container_step_two_confirm}>
-                <label htmlFor="">By checking the box below, you assure that your information is complete and true.
-                 You are also assuring that you are aware that you must immediately inform the family fund (Familienkasse)
-                 of any changes that are important for the entitlement to child benefit. You have taken note of the content
-                 of the child benefit leaflet (can be found at www.bzst.de or www.familienkasse.de).</label>
+             {
+              documentPdf.uniAbgebrochen && (
+                <div className={classes.form_container_step_three}>
+                <div className={classes.form_container_step_two_checkbox}>
+                  <h3>Dropped out</h3>
+                </div>
+                <div className={classes.form_container_step_three_date}>
+                  <label htmlFor="">When did you drop out?</label>
+                  <input type="date" name="uniAbgebrochenAm" id=""  disabled={!documentPdf.uniAbgebrochen} value={documentPdf.uniAbgebrochenAm} onChange={handleInputChange} />
+                </div>
+               </div>
+              )
+             }
+              {
+                documentPdf.uniGehtWeiter && (
+                  <div className={classes.form_container_step_three}>
+                  <div className={classes.form_container_step_three_checkbox}>
+                     <h3>Currently studying</h3>
+                   </div>
+                   <div className={classes.form_container_step_three_date}>
+                     <label htmlFor="">Which enrollment certificate can you provide ?</label>
+                     <select name="immaType" id="" disabled={!documentPdf.uniGehtWeiter} onChange={setImmatype}>
+                       <option value="WiSe">Wintersemester</option>
+                       <option value="SoSe">Sommersemester</option>
+                     </select>
+                   </div>
 
-                  <div>
-                  <input type="radio" name="confirmed" id="" />
-                  <label htmlFor="">Yes</label>
+                   <div className={classes.form_container_step_three_date}>
+                     <label htmlFor="">Year</label>
+                     <input type="number"  placeholder='yyyy' disabled={!documentPdf.uniGehtWeiter} value={immaJahr} onChange={(e) => setImmaJahr(Number(e.currentTarget.value)) } />
+                   </div>
+                   <div className={classes.form_container_step_three_radio}>
+                   <input type="checkbox" name="beigefuegt" id="" onChange={(e) => setDocumentPdf({...documentPdf, beigefuegt: e.currentTarget.checked}) } />
+                     <label htmlFor="">I have included the enrollment certificate in this application</label>
+                   </div>
+
+                   <div className={classes.form_container_step_three_radio}>
+                   <input type="checkbox" name="wirdNachgereicht" id="" onChange={(e) => setDocumentPdf({...documentPdf, wirdNachgereicht: e.currentTarget.checked})}/>
+                     <label htmlFor="">I will provide the enrollment certificate later</label>
+                   </div>
+
+
+                   <div className={classes.form_container_step_three_textarea}>
+                     <label htmlFor="">Do you have any further information you would like to provide?</label>
+                     <textarea name="extraAngaben" id="" cols={30} rows={10} onChange={handleInputChange}></textarea>
+                   </div>
+
+                   <div className={classes.form_container_step_three_confirm}>
+                     <label htmlFor="">By checking the box below, you assure that your information is complete and true.
+                      You are also assuring that you are aware that you must immediately inform the family fund (Familienkasse)
+                      of any changes that are important for the entitlement to child benefit. You have taken note of the content
+                      of the child benefit leaflet (can be found at www.bzst.de or www.familienkasse.de).</label>
+
+                       <div>
+                       <input type="radio" name="confirmed" id="" />
+                       <label htmlFor="">Yes</label>
+                       </div>
+
+                       <div>
+                       <input type="radio" name="confirmed" id="" />
+                       <label htmlFor="">No</label>
+                       </div>
+                   </div>
+
+
                   </div>
-
-                  <div>
-                  <input type="radio" name="confirmed" id="" />
-                  <label htmlFor="">No</label>
-                  </div>
-              </div>
-
-
-             </div>
+                )
+              }
             </div>
 
             </>
@@ -365,11 +420,16 @@ export default function Form() {
        {/* actions */}
        <div className={classes.form_container_actions}>
           <button onClick={goToPrevStep}>{
-            currentStep === 0  ? 'Abbrechen' :'Zurück'
+            currentStep === 0  ? 'Cancel' :'Back'
           }</button>
-          <button onClick={currentStep === 2 ? handleSubmit : goToNextStep}>
+          <button onClick={currentStep === 3 ? handleSubmit : goToNextStep} disabled={uniLevel.length === 0 && currentStep === 2}>
             {
-              currentStep === 2 ? 'Einreichen' : 'Weiter'
+              currentStep === 3 ? 'Submit' : 'Next'
+            }
+            {
+                loading && (
+                  <LoadingSpinner/>
+                )
             }
           </button>
         </div>

@@ -27,8 +27,8 @@
     align-items: center;
     height: 49px;
     gap: 45px;
-    background-color: $primaryBlue;
-    color: #ffff ;
+    background-color: $secondaryMarron;
+    color: $primaryBlack ;
 
 
     .topBar_head_actions {
@@ -126,10 +126,10 @@
     .topBar_body_contacts_number, .topBar_body_contacts_hours {
         text-transform: uppercase;
         font-weight: bold;
-        color: #2d3436;
+        color: $primaryMarron;
 
         p:nth-child(1) {
-          color: $primaryBlue;
+          color: $primaryBlack;
         }
     }
   }
@@ -198,16 +198,29 @@
     button {
       border: none;
       padding: 10px;
+
+
       background-color: white;
       font-family: inherit;
       cursor: pointer;
       font-weight: bold;
-      color: $primaryBlue;
+      color: $primaryMarron;
 
      &:hover {
-      color: #054157;
+      color: #b65200c3;
       transition: all 0.3s ease-in;
      }
+
+      &:nth-child(3) {
+        background-color: $primaryMarron;
+        color: $primaryWhite;
+        border-radius: 5px;
+
+        &:hover {
+          background-color: #b65200c3;
+          transition: all 0.2s ease-in;
+        }
+      }
 
     }
   }

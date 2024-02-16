@@ -5,10 +5,10 @@ export default function Footer() {
    <div className={classes.footer_container}>
     <div className={classes.footer_welcome}>
       <h2>Welcome to EU Legal Assist</h2>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci
-         recusandae </p>
-         <p>corrupti optio sapiente quisquam sint doloribus,
-         aque dolores voluptat!</p>
+      <p>German legal documents in English and French for every immigrant.
+        Understand your rights and declare your taxes without language barriers.</p>
+         {/* <p>corrupti optio sapiente quisquam sint doloribus,
+         aque dolores voluptat!</p> */}
        <div>
         <div></div>
         <div></div>
@@ -27,7 +27,7 @@ export default function Footer() {
       <h2>Contact Details</h2>
       <div>
         <h3>Adresse</h3>
-        <p>youadressestraße 12, 12457 Berlin</p>
+        <p>Vorsetzen 41, 20459 Hamburg</p>
       </div>
       <div>
         <h3>Open Hours</h3>
@@ -36,7 +36,7 @@ export default function Footer() {
 
       <div>
         <h3>Telephone</h3>
-        <p>+555 555 555</p>
+        <p>+490175 8886316</p>
       </div>
     </div>
     <div className={classes.footer_other}>
