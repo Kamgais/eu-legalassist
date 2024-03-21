@@ -1,0 +1,29 @@
+.aboutUs_container {
+  display: flex;
+  gap: 30px;
+  width: 60vw;
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+
+
+  .left {
+   // background-color: red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    h2 {
+      font-size: 40px;
+      text-transform: uppercase;
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+      color: #B65200;
+      border-bottom: 1px solid  #FFF2E9;
+    }
+
+    p {
+      color: #7F7F7F;
+      font-size: 18px;
+    }
+  }
+}

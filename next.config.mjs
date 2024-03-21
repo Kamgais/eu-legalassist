@@ -9,7 +9,10 @@ const nextConfig = {
         pathname: '/photos/**',
       },
     ],
-  }
+  },
+  distDir: 'build',
+  output: 'export',
+  trailingSlash: true,
 };
 
 export default nextConfig;

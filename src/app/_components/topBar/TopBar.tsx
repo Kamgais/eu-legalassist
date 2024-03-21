@@ -49,10 +49,8 @@ export default function TopBar() {
     <div className={classes.topBar_actions}>
       <ul className={classes.topBar_actions_left}>
         <li>Home</li>
-        <li>Business & Unternehmen</li>
-        <li>Personalwesen / Arbeit</li>
-        <li>Rechtsdokumente</li>
-        <li>Alle Dokumente</li>
+        <li>Services offer</li>
+        <li>About us</li>
       </ul>
       <div className={classes.topBar_actions_right}>
         <div className={classes.topBar_actions_search}>
@@ -61,8 +59,6 @@ export default function TopBar() {
           <CiSearch/>
           </div>
         </div>
-        <button>Login</button>
-        <button>Register Now</button>
       </div>
     </div>
    </nav>

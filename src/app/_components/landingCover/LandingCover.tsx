@@ -18,10 +18,6 @@ export default function LandingCover() {
           <p>German legal documents in English and French for every immigrant.
             Understand your rights and declare your taxes without language barriers.
           </p>
-              <div className={classes.headContent_action}>
-              <button onClick={handleClick} >Create a document</button>
-              </div>
-
       </div>
     </div>
   )

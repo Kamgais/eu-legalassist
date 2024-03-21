@@ -1,0 +1,49 @@
+.serviceOffer_container {
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  margin-top: 50px;
+  margin-bottom: 100px;
+
+
+  h2 {
+    width: 70%;
+    text-transform: uppercase;
+    color: #B65200;
+    font-size: 30px;
+
+  }
+
+
+  ul {
+    list-style: none;
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    border-top: 1px solid #FFF2E9;
+    gap: 20px;
+
+
+
+    li {
+      width: 40%;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+      text-transform: uppercase;
+      font-weight: bold;
+      border-bottom: 1px solid #FFF2E9;
+
+      &:nth-child(2n) {
+        margin-left: auto;
+      }
+
+    }
+
+  }
+}

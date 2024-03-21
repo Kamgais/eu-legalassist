@@ -35,7 +35,7 @@
 
   }
   @include sm {
-    font-size: 15px;
+    font-size: 20px;
     width: 60%;
     height: 80%;
     border-radius: 20px;
@@ -55,10 +55,10 @@
 
   h2 {
     @include xs {
-      font-size: 15px;
+      font-size: 25px;
     }
     @include sm {
-      font-size: 25px;
+      font-size: 35px;
     }
 
     text-transform: uppercase;
